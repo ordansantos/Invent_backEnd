@@ -27,6 +27,58 @@ router.get('/rooms', function (req, res) {
     
 });
 
+// :room = id
+router.get('/room/:room', function(req, res, next) {
+    
+  var room = req.room;
+
+  Room.find(function(err) {
+    if (err) {
+      res.sendStatus(404);
+      return next(err);
+    }
+      var r = res.send(room);
+      console.log(r.data);
+
+      return next();
+  });
+  
+});
+
+router.delete('/room/:room', function(req, res, next) {
+    
+  Room.remove({_id: req.params.room}, function(err) {
+    if (err) {
+      res.sendStatus(404);
+
+       return next(err);
+    }
+    res.end();
+
+    return next();
+  });
+    
+});
+
+
+router.param('room', function (req, res, next, _id) {
+  var query = Room.findById(_id);
+
+  query.exec(function (err, room) {
+    if (err) {
+      res.sendStatus(code404);
+      return next(err);
+    }
+    if (!room) {
+      res.sendStatus(code404);
+      return next(new Error('can\'t find room'));
+    }
+
+    req.room = room;
+    return next();
+  });
+});
+
 
 
 module.exports = router;
