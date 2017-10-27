@@ -10,11 +10,11 @@ router.post('/user', function (req, res) {
     
     var user = new User(req.body);
         user.save(function (err, next) {
-          	if (err) {
-            	return next(err);
-           	}
+            if (err) {
+              return next(err);
+            }
           res.end()
-     	});
+      });
     
 });
 
@@ -25,6 +25,57 @@ router.get('/users', function (req, res) {
             res.send(user);
         });
     
+});
+
+// :user = id
+router.get('/user/:user', function(req, res, next) {
+    
+  var user = req.user;
+
+  User.find(function(err) {
+    if (err) {
+      res.sendStatus(404);
+      return next(err);
+    }
+      var r = res.send(user);
+
+      return next();
+  });
+  
+});
+
+router.delete('/user/:user', function(req, res, next) {
+    
+  User.remove({_id: req.params.user}, function(err) {
+    if (err) {
+      res.sendStatus(404);
+
+       return next(err);
+    }
+    res.end();
+
+    return next();
+  });
+    
+});
+
+
+router.param('user', function (req, res, next, _id) {
+  var query = User.findById(_id);
+
+  query.exec(function (err, user) {
+    if (err) {
+      res.sendStatus(code404);
+      return next(err);
+    }
+    if (!user) {
+      res.sendStatus(code404);
+      return next(new Error('can\'t find user'));
+    }
+
+    req.user = user;
+    return next();
+  });
 });
 
 
