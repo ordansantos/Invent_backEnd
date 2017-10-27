@@ -46,7 +46,7 @@ module.exports = function () {
     
 
     var server = app.listen(8081, function () {
-        console.log('Virtus application listening on port 8081!');
+        console.log('Invent application listening on port 8081!');
     });
 
     var io = require('socket.io').listen(server);

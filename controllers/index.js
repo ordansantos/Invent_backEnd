@@ -5,6 +5,10 @@ router.use('/', require('./login'))
 
 router.use('/', require('./user'))
 
+router.use('/', require('./thing'))
+
+router.use('/', require('./room'))
+
 
 
 
