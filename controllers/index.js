@@ -9,6 +9,7 @@ router.use('/', require('./thing'))
 
 router.use('/', require('./room'))
 
+router.use('/', require('./machine'))
 
 
 
