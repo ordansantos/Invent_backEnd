@@ -2,7 +2,7 @@ var express = require("express");
 var load = require('express-load');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-//var cors = require('cors');
+var cors = require('cors');
 
 //var fs = require('fs');
 var http = require('http');
@@ -13,7 +13,7 @@ module.exports = function () {
 
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS, HEAD');
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.setHeader('Access-Control-Allow-Credentials', true);
         next();
@@ -26,7 +26,7 @@ module.exports = function () {
             saveUninitialized: false
         }));
 
-   // app.use(cors({credentials: true}));
+    app.use(cors({credentials: true}));
 
     
 
