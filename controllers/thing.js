@@ -45,6 +45,18 @@ router.get('/thing/:thing', function(req, res, next) {
   
 });
 
+/**
+ * Edit Thing
+ */
+
+router.put('/thing/:id', function (req, res) {
+  Thing.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
+      if (err) console.log(err);
+      console.log("Objeto atualizado!");
+      res.send(doc);
+    });
+});
+
 router.delete('/thing/:thing', function(req, res, next) {
     
   Thing.remove({_id: req.params.thing}, function(err) {
