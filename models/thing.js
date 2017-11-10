@@ -13,9 +13,8 @@ var thingSchema = mongoose.Schema({
     origem: {
         type: String
     },
-
     description: {
-    	type: String
+    	type: String,
       required: true
     },
     // marca / modelo

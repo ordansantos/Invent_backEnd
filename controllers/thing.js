@@ -24,7 +24,6 @@ router.get('/things', function (req, res) {
             if (err) return console.error(err);
             res.send(thing);
         });
-
 });
 
 // :thing = id
