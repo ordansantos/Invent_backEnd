@@ -14,4 +14,4 @@ var rommSchema = mongoose.Schema({
 
 var Room = mongoose.model('Room', rommSchema);
 
-module.exports = mongoose.model('Room', rommSchema);
+module.exports = Room;

@@ -1,29 +1,29 @@
 var mongoose = require('mongoose');
 
+//Schema para a planilha basica
+
 var thingSchema = mongoose.Schema({
 
-    numberOfPatrimony: {
+  //numero de patrimonio
+    number_Patrimony: {
         type: String
     },
 
-    name: {
-        type: String,
-        required:true
-    },
-
-    source: {
+    //origem do objeto
+    origem: {
         type: String
     },
 
     description: {
     	type: String
+      required: true
     },
-
+    // marca / modelo
     brand_model: {
         type: String
     },
 
-    series: {
+    serie: {
         type: String
     },
 
@@ -34,10 +34,8 @@ var thingSchema = mongoose.Schema({
     comments: {
         type: String
     }
-
-
 });
 
 var Thing = mongoose.model('Thing', thingSchema);
 
-module.exports = mongoose.model('Thing', thingSchema);
+module.exports = Thing

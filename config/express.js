@@ -28,7 +28,7 @@ module.exports = function () {
 
     app.use(cors({credentials: true}));
 
-    
+
 
     // middleware
     app.use(express.static('./public'));
@@ -43,14 +43,14 @@ module.exports = function () {
 
     app.use('/', require('../controllers/index'));
 
-    
+
 
     var server = app.listen(8081, function () {
         console.log('Invent application listening on port 8081!');
-    });
+      });
 
     var io = require('socket.io').listen(server);
-    
+
     load('models', {cwd: 'app'})
         .then('controllers')
         .then('routes')

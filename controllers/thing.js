@@ -7,7 +7,7 @@ var fs = require('fs');
 var path = require('path');
 
 router.post('/thing', function (req, res) {
-    
+
     var thing = new Thing(req.body);
         thing.save(function (err, next) {
           	if (err) {
@@ -15,7 +15,7 @@ router.post('/thing', function (req, res) {
            	}
           res.end()
      	});
-    
+
 });
 
 router.get('/things', function (req, res) {
@@ -24,12 +24,12 @@ router.get('/things', function (req, res) {
             if (err) return console.error(err);
             res.send(thing);
         });
-    
+
 });
 
 // :thing = id
 router.get('/thing/:thing', function(req, res, next) {
-    
+
   var thing = req.thing;
 
   Thing.find(function(err) {
@@ -38,11 +38,8 @@ router.get('/thing/:thing', function(req, res, next) {
       return next(err);
     }
       var r = res.send(thing);
-      console.log(r.data);
-
       return next();
   });
-  
 });
 
 /**
@@ -58,7 +55,7 @@ router.put('/thing/:id', function (req, res) {
 });
 
 router.delete('/thing/:thing', function(req, res, next) {
-    
+
   Thing.remove({_id: req.params.thing}, function(err) {
     if (err) {
       res.sendStatus(404);
@@ -69,7 +66,7 @@ router.delete('/thing/:thing', function(req, res, next) {
 
     return next();
   });
-    
+
 });
 
 

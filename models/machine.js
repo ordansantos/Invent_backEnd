@@ -54,4 +54,4 @@ var machineSchema = mongoose.Schema({
 
 var Machine = mongoose.model('Machine', machineSchema);
 
-module.exports = mongoose.model('Machine', machineSchema);
+module.exports = Machine;
