@@ -15,6 +15,14 @@ var userSchema = mongoose.Schema({
     password: {
     	type: String,
     	required: true
+    },
+
+    room: {
+        type:String
+    },
+
+    userKind: {
+        type:String
     }
 });
 

@@ -59,6 +59,19 @@ router.delete('/user/:user', function(req, res, next) {
     
 });
 
+/**
+ * Edit Thing
+ */
+
+router.put('/user/:id', function (req, res) {
+  User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
+      if (err) console.log(err);
+      console.log("Usuário atualizado!");
+      res.send(doc);
+    });
+});
+
+
 
 router.param('user', function (req, res, next, _id) {
   var query = User.findById(_id);
