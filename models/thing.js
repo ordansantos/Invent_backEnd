@@ -38,6 +38,10 @@ var thingSchema = mongoose.Schema({
 
     room:{
         type: String
+    },
+
+    acquisition_date: {
+        type: String
     }
 });
 

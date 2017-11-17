@@ -49,6 +49,14 @@ var machineSchema = mongoose.Schema({
 
     inst_monitor_Patrimony: {
       type: String
+    }, 
+
+    situation: {
+        type: String
+    },
+
+    acquisition_date: {
+        type: String
     }
 });
 
