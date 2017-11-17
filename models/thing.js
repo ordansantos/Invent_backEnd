@@ -41,7 +41,7 @@ var thingSchema = mongoose.Schema({
     },
 
     acquisition_date: {
-        type: String
+        type: Date
     }
 });
 
