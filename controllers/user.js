@@ -64,6 +64,7 @@ router.delete('/user/:user', function(req, res, next) {
  */
 
 router.put('/user/:id', function (req, res) {
+  console.log(req.body);
   User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
       if (err) console.log(err);
       console.log("Usuário atualizado!");

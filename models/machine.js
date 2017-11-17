@@ -31,11 +31,11 @@ var machineSchema = mongoose.Schema({
       type: String
     },
 
-    property: {
+    number_Patrimony: {
       type: String
     },
 
-    inst_property: {
+    inst_Patrimony: {
       type: String
     },
 
@@ -43,11 +43,11 @@ var machineSchema = mongoose.Schema({
       type: String
     },
 
-    monitor_property: {
+    monitor_number_Patrimony: {
       type: String
     },
 
-    inst_monitor_property: {
+    inst_monitor_Patrimony: {
       type: String
     }
 });
