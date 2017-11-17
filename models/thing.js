@@ -13,10 +13,12 @@ var thingSchema = mongoose.Schema({
     origem: {
         type: String
     },
+
     description: {
     	type: String,
       required: true
     },
+
     // marca / modelo
     brand_model: {
         type: String
@@ -31,6 +33,10 @@ var thingSchema = mongoose.Schema({
     },
 
     comments: {
+        type: String
+    }, 
+
+    room:{
         type: String
     }
 });
