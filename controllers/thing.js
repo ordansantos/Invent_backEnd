@@ -19,7 +19,6 @@ router.post('/thing', function (req, res) {
 });
 
 router.get('/things', function (req, res) {
-
     Thing.find(function (err, thing) {
             if (err) return console.error(err);
             res.send(thing);
