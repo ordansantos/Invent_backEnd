@@ -45,6 +45,16 @@ router.get('/room/:room', function(req, res, next) {
   
 });
 
+router.post('/room', function (req, res) {
+    
+    var roomID = req.body.room;
+      Room.find({room: roomID}, function (err, room) {
+            if (err) return console.error(err);
+            res.send(room);
+        });
+    
+});
+
 router.delete('/room/:room', function(req, res, next) {
     
   Room.remove({_id: req.params.room}, function(err) {

@@ -26,6 +26,17 @@ router.get('/things', function (req, res) {
         });
 });
 
+router.post('/thingsInRoom', function (req, res) {
+
+    var roomID = req.body.room;
+        Thing.find({room: roomID} , function (err, thing) {
+            if (err) return console.error(err);
+            res.send(thing);
+        });
+
+});
+
+
 // :thing = id
 router.get('/thing/:thing', function(req, res, next) {
 

@@ -17,6 +17,16 @@ router.post('/machine', function (req, res) {
 
 });
 
+router.post('/machinesInRoom', function (req, res) {
+
+    var roomID = req.body.room;
+        Machine.find({room: roomID} , function (err, machine) {
+            if (err) return console.error(err);
+            res.send(machine);
+        });
+
+});
+
 router.get('/machines', function (req, res) {
 
     Machine.find(function (err, machine) {

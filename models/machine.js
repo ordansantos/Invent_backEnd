@@ -57,6 +57,10 @@ var machineSchema = mongoose.Schema({
 
     acquisition_date: {
         type: Date
+    },
+
+    destination:{
+        type: String
     }
 });
 

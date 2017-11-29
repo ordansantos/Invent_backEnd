@@ -42,6 +42,10 @@ var thingSchema = mongoose.Schema({
 
     acquisition_date: {
         type: Date
+    },
+
+    destination:{
+        type: String
     }
 });
 
