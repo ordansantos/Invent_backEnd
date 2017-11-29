@@ -6,7 +6,7 @@ var machineSchema = mongoose.Schema({
       type: String,
     },
 
-    name: {
+    description: {
         type: String,
         required: true
     },
