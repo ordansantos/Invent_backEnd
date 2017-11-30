@@ -6,6 +6,8 @@ var Thing = require("../models/thing");
 var fs = require('fs');
 var path = require('path');
 
+var auth = require('./auth');
+
 router.post('/thing', function (req, res) {
 
     var thing = new Thing(req.body);
@@ -18,7 +20,7 @@ router.post('/thing', function (req, res) {
 
 });
 
-router.get('/things', function (req, res) {
+router.get('/things', auth.getAuth(), function (req, res) {
     Thing.find(function (err, thing) {
             if (err) return console.error(err);
             res.send(thing);
