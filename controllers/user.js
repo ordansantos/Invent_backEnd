@@ -6,7 +6,9 @@ var User = require("../models/user");
 var fs = require('fs');
 var path = require('path');
 
-router.post('/user', function (req, res) {
+var auth = require('./auth');
+
+router.post('/user', auth.getAuth(), function (req, res) {
     
     var user = new User(req.body);
         user.save(function (err, next) {
@@ -18,7 +20,7 @@ router.post('/user', function (req, res) {
     
 });
 
-router.get('/users', function (req, res) {
+router.get('/users', auth.getAuth(), function (req, res) {
 
     User.find(function (err, user) {
             if (err) return console.error(err);
@@ -28,7 +30,7 @@ router.get('/users', function (req, res) {
 });
 
 // :user = id
-router.get('/user/:user', function(req, res, next) {
+router.get('/user/:user', auth.getAuth(), function(req, res, next) {
     
   var user = req.user;
 
@@ -44,7 +46,7 @@ router.get('/user/:user', function(req, res, next) {
   
 });
 
-router.delete('/user/:user', function(req, res, next) {
+router.delete('/user/:user', auth.getAuth(), function(req, res, next) {
     
   User.remove({_id: req.params.user}, function(err) {
     if (err) {
@@ -63,7 +65,7 @@ router.delete('/user/:user', function(req, res, next) {
  * Edit Thing
  */
 
-router.put('/user/:id', function (req, res) {
+router.put('/user/:id', auth.getAuth(), function (req, res) {
   console.log(req.body);
   User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
       if (err) console.log(err);
@@ -74,7 +76,7 @@ router.put('/user/:id', function (req, res) {
 
 
 
-router.param('user', function (req, res, next, _id) {
+router.param('user', auth.getAuth(), function (req, res, next, _id) {
   var query = User.findById(_id);
 
   query.exec(function (err, user) {

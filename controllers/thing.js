@@ -8,7 +8,7 @@ var path = require('path');
 
 var auth = require('./auth');
 
-router.post('/thing', function (req, res) {
+router.post('/thing', auth.getAuth(), function (req, res) {
 
     var thing = new Thing(req.body);
         thing.save(function (err, next) {
@@ -27,7 +27,7 @@ router.get('/things', auth.getAuth(), function (req, res) {
         });
 });
 
-router.post('/thingsInRoom', function (req, res) {
+router.post('/thingsInRoom', auth.getAuth(), function (req, res) {
 
     var roomID = req.body.room;
         Thing.find({room: roomID} , function (err, thing) {
@@ -39,7 +39,7 @@ router.post('/thingsInRoom', function (req, res) {
 
 
 // :thing = id
-router.get('/thing/:thing', function(req, res, next) {
+router.get('/thing/:thing', auth.getAuth(), function(req, res, next) {
 
   var thing = req.thing;
 
@@ -57,7 +57,7 @@ router.get('/thing/:thing', function(req, res, next) {
  * Edit Thing
  */
 
-router.put('/thing/:id', function (req, res) {
+router.put('/thing/:id', auth.getAuth(), function (req, res) {
   Thing.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
       if (err) console.log(err);
       console.log("Objeto atualizado!");
@@ -65,7 +65,7 @@ router.put('/thing/:id', function (req, res) {
     });
 });
 
-router.delete('/thing/:thing', function(req, res, next) {
+router.delete('/thing/:thing', auth.getAuth(), function(req, res, next) {
 
   Thing.remove({_id: req.params.thing}, function(err) {
     if (err) {
@@ -81,7 +81,7 @@ router.delete('/thing/:thing', function(req, res, next) {
 });
 
 
-router.param('thing', function (req, res, next, _id) {
+router.param('thing', auth.getAuth(), function (req, res, next, _id) {
   var query = Thing.findById(_id);
 
   query.exec(function (err, thing) {

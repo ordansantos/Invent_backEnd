@@ -15,8 +15,7 @@ router.post('/register', function(req, res) {
 
     if (req.body.password === '' || !req.body.password){
 
-        res.json({"message" : "Senha vazia"});
-        res.status(401);
+        res.status(400).send({ error: "Senha vazia" });
 
     } else {
 
@@ -26,8 +25,7 @@ router.post('/register', function(req, res) {
             var token;
             token = user.generateJwt();
             if (err) {
-                res.json({"message": err.name + ": " + err.message});
-                res.status(401);
+                res.status(400).send({ message: "Usuário com esse email já existe" });
                 return console.error(err);
             }
             res.status(200);
