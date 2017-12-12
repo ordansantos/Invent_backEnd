@@ -45,6 +45,18 @@ router.get('/room/:room', function(req, res, next) {
   
 });
 
+/**
+ * Edit Machine
+ */
+
+router.put('/room/:id', function (req, res) {
+    Room.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
+        if (err) console.log(err);
+        console.log("Objeto atualizado!");
+        res.send(doc);
+    });
+});
+
 router.post('/room', function (req, res) {
     
     var roomID = req.body.room;
