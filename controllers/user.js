@@ -9,7 +9,7 @@ var path = require('path');
 var auth = require('./auth');
 
 router.post('/user', auth.getAuth(), function (req, res) {
-    
+
     var user = new User(req.body);
         user.save(function (err, next) {
             if (err) {
@@ -17,7 +17,7 @@ router.post('/user', auth.getAuth(), function (req, res) {
             }
           res.end()
       });
-    
+
 });
 
 router.get('/users', auth.getAuth(), function (req, res) {
@@ -26,12 +26,12 @@ router.get('/users', auth.getAuth(), function (req, res) {
             if (err) return console.error(err);
             res.send(user);
         });
-    
+
 });
 
 // :user = id
 router.get('/user/:user', auth.getAuth(), function(req, res, next) {
-    
+
   var user = req.user;
 
   User.find(function(err) {
@@ -43,11 +43,11 @@ router.get('/user/:user', auth.getAuth(), function(req, res, next) {
 
       return next();
   });
-  
+
 });
 
 router.delete('/user/:user', auth.getAuth(), function(req, res, next) {
-    
+
   User.remove({_id: req.params.user}, function(err) {
     if (err) {
       res.sendStatus(404);
@@ -58,7 +58,7 @@ router.delete('/user/:user', auth.getAuth(), function(req, res, next) {
 
     return next();
   });
-    
+
 });
 
 /**
