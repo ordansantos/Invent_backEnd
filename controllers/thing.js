@@ -24,7 +24,7 @@ router.post('/thing', auth.getAuth(), function (req, res) {
 router.get('/things/attachments', function (req, res) {
 
     Thing.find({}, function (err, things) {
-        if (err) console.log(err);
+        if (err) return console.error(err);
 
         console.log(things);
 
@@ -44,7 +44,9 @@ router.get('/things/attachments', function (req, res) {
             write(list, {headers: true})
             .pipe(ws);
 
-    });        
+    });
+
+    res.send('Sucesso');        
     
 });
 

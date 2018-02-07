@@ -87,7 +87,7 @@ router.delete('/machine/:machine', auth.getAuth(), function(req, res, next) {
 router.get('/machines/attachments', function (req, res) {
 
     Machine.find({}, function (err, machines) {
-        if (err) console.log(err);
+        if (err) return console.log(err);
 
         var things = [['Sala','Descrição', 'IP público', 'Usuário', 'Processador', 'HD', 'Memória RAM', 
                     'Patrimônio', 'Patrimônio inst', 'Monitor', 'Patrimonio (Monitor)', 'Patrimonio inst(Monitor)', 
@@ -107,7 +107,9 @@ router.get('/machines/attachments', function (req, res) {
             write(things, {headers: true})
             .pipe(ws);
 
-    });        
+    });
+
+    res.send('Sucesso');         
     
 });
 
