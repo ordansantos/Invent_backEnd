@@ -6,7 +6,9 @@ var Room = require("../models/room");
 var fs = require('fs');
 var path = require('path');
 
-router.post('/room', function (req, res) {
+var auth = require('./auth');
+
+router.post('/room', auth.getAuth(), function (req, res) {
     
     var room = new Room(req.body);
         room.save(function (err, next) {
@@ -18,7 +20,7 @@ router.post('/room', function (req, res) {
     
 });
 
-router.get('/rooms', function (req, res) {
+router.get('/rooms', auth.getAuth(), function (req, res) {
 
     Room.find(function (err, room) {
             if (err) return console.error(err);
@@ -28,7 +30,7 @@ router.get('/rooms', function (req, res) {
 });
 
 // :room = id
-router.get('/room/:room', function(req, res, next) {
+router.get('/room/:room', auth.getAuth(), function(req, res, next) {
     
   var room = req.room;
 
@@ -45,6 +47,7 @@ router.get('/room/:room', function(req, res, next) {
   
 });
 
+
 /**
  * Edit Machine
  */
@@ -57,8 +60,8 @@ router.put('/room/:id', function (req, res) {
     });
 });
 
-router.post('/room', function (req, res) {
-    
+router.post('/room', auth.getAuth(), function (req, res) {
+   
     var roomID = req.body.room;
       Room.find({room: roomID}, function (err, room) {
             if (err) return console.error(err);
@@ -67,7 +70,7 @@ router.post('/room', function (req, res) {
     
 });
 
-router.delete('/room/:room', function(req, res, next) {
+router.delete('/room/:room', auth.getAuth(), function(req, res, next) {
     
   Room.remove({_id: req.params.room}, function(err) {
     if (err) {
@@ -83,7 +86,7 @@ router.delete('/room/:room', function(req, res, next) {
 });
 
 
-router.param('room', function (req, res, next, _id) {
+router.param('room', auth.getAuth(), function (req, res, next, _id) {
   var query = Room.findById(_id);
 
   query.exec(function (err, room) {

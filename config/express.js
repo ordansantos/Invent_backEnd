@@ -4,6 +4,9 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+// Authentication
+var passport = require('passport');
+
 //var fs = require('fs');
 var http = require('http');
 
@@ -41,9 +44,22 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
+    // Authentication
+    app.use(passport.initialize());
+
     app.use('/', require('../controllers/index'));
 
+    // No authentication token
+    app.use(function (err, req, res, next) {
+        if (err.name === 'UnauthorizedError') {
+            res.status(401);
+            res.json({"message" : err.name + ": " + err.message});
+        } else {
+            res.status(401);
 
+            res.json({"message" : "Provavelmente erro no código..." + err});
+        }
+    });
 
     var server = app.listen(8081, function () {
         console.log('Invent application listening on port 8081!');

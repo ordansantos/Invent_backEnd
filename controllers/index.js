@@ -1,7 +1,10 @@
 var express = require('express')
 var router = express.Router();
 
+
 router.use('/', require('./login'))
+
+router.use('/', require('./register'))
 
 router.use('/', require('./user'))
 
@@ -10,6 +13,7 @@ router.use('/', require('./thing'))
 router.use('/', require('./room'))
 
 router.use('/', require('./machine'))
+
 
 
 
