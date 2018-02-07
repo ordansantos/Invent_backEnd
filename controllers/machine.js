@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
-var csvGenerator = require('../utils/csvGenerator');
 var csv = require('fast-csv');
 var archiver = require('archiver')
 var Machine = require('../models/machine');
