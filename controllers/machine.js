@@ -43,7 +43,7 @@ router.get('/machine/:machine', auth.getAuth(), function(req, res, next) {
 
     var machine = req.machine;
 
-    Machine.find(function(err) {
+    Machine.find(function(err, machine) {
         if (err) {
             res.sendStatus(404);
             return next(err);
