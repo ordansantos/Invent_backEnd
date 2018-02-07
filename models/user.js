@@ -16,11 +16,13 @@ var userSchema = mongoose.Schema({
     },
 
     room: {
-        type:String
+        type:String,
+        default: ''
     },
 
     userKind: {
-        type:String
+        type:String,
+        default: ''
     },
 
     hash: String,

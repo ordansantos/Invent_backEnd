@@ -6,12 +6,14 @@ var thingSchema = mongoose.Schema({
 
   //numero de patrimonio
     number_Patrimony: {
-        type: String
+        type: String,
+        default: ''
     },
 
     //origem do objeto
     origem: {
-        type: String
+        type: String,
+        default: ''
     },
 
     description: {
@@ -21,31 +23,38 @@ var thingSchema = mongoose.Schema({
 
     // marca / modelo
     brand_model: {
-        type: String
+        type: String,
+        default: ''
     },
 
     serie: {
-        type: String
+        type: String,
+        default: ''
     },
 
     situation: {
-        type: String
+        type: String,
+        default: ''
     },
 
     comments: {
-        type: String
-    }, 
+        type: String,
+        default: ''
+    },
 
     room:{
-        type: String
+        type: String,
+        default: ''
     },
 
     acquisition_date: {
-        type: Date
+        type: Date,
+        default: ''
     },
 
     destination:{
-        type: String
+        type: String,
+        default: ''
     }
 });
 
