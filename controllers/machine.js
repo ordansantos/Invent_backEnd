@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var csvGenerator = require('../utils/csvGenerator');
+var csv = require('fast-csv');
+var archiver = require('archiver')
 var Machine = require('../models/machine');
 var fs = require('fs');
 var path = require('path');
@@ -81,6 +84,33 @@ router.delete('/machine/:machine', auth.getAuth(), function(req, res, next) {
         return next();
     });
 
+});
+
+router.get('/machines/attachments', function (req, res) {
+
+    Machine.find({}, function (err, machines) {
+        if (err) console.log(err);
+
+        var things = [['Sala','Descrição', 'IP público', 'Usuário', 'Processador', 'HD', 'Memória RAM', 
+                    'Patrimônio', 'Patrimônio inst', 'Monitor', 'Patrimonio (Monitor)', 'Patrimonio inst(Monitor)', 
+                    'Data de Aquisição','Situação','Destinatário']];
+
+        for (var i = 0; i < machines.length; i++) {
+            machine = [machines[i].room, machines[i].description, machines[i].public_ip, machines[i].machine_user, 
+                       machines[i].processor,  machines[i].hd, machines[i].ram_memory, machines[i].number_Patrimony, 
+                       machines[i].inst_Patrimony, machines[i].monitor, machines[i].inst_monitor_Patrimony, 
+                       machines[i].monitor_number_Patrimony, machines[i].acquisition_date, machines[i].situation, machines[i].destination];
+            things.push(machine);
+        }
+
+        var ws = fs.createWriteStream('relatorioMaquinas.csv');
+
+        csv.
+            write(things, {headers: true})
+            .pipe(ws);
+
+    });        
+    
 });
 
 
