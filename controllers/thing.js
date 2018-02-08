@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-
+var csv = require('fast-csv');
+var archiver = require('archiver')
 var Thing = require("../models/thing");
 var fs = require('fs');
 var path = require('path');
@@ -18,6 +19,35 @@ router.post('/thing', auth.getAuth(), function (req, res) {
           res.end()
      	});
 
+});
+
+router.get('/things/attachments', function (req, res) {
+
+    Thing.find({}, function (err, things) {
+        if (err) return console.error(err);
+
+        console.log(things);
+
+        var list = [['Sala','Patrimônio', 'Série', 'Origem', 'Descrição', 'Marca/Modelo', 'Data de aquisição', 
+                    'Situação', 'Destinatário', 'Observações']];
+
+        for (var i = 0; i < things.length; i++) {
+            thing = [things[i].room, things[i].number_Patrimony, things[i].serie, things[i].origem, 
+                       things[i].description,  things[i].brand_model, things[i].acquisition_date, things[i].situation, 
+                       things[i].destination, things[i].comments];
+            list.push(thing);
+        }
+
+        var ws = fs.createWriteStream('relatorioObjetos.csv');
+
+        csv.
+            write(list, {headers: true})
+            .pipe(ws);
+
+    });
+
+    res.send('Sucesso');        
+    
 });
 
 router.get('/things', auth.getAuth(), function (req, res) {
@@ -43,7 +73,7 @@ router.get('/thing/:thing', auth.getAuth(), function(req, res, next) {
 
   var thing = req.thing;
 
-  Thing.find(function(err) {
+  Thing.find(function(err, thing) {
     if (err) {
       res.sendStatus(404);
       return next(err);

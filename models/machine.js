@@ -4,6 +4,7 @@ var machineSchema = mongoose.Schema({
 
     room: {
       type: String,
+      default: ''
     },
 
     description: {
@@ -12,55 +13,68 @@ var machineSchema = mongoose.Schema({
     },
 
     public_ip: {
-      type: String
+      type: String,
+      default: ''
     },
 
     machine_user: {
-      type: String
+      type: String,
+      default: ''
     },
 
     processor: {
-      type: String
+      type: String,
+      default: ''
     },
 
     hd: {
-      type: String
+      type: String,
+      default: ''
     },
 
     ram_memory: {
-      type: String
+      type: String,
+      default: ''
     },
 
     number_Patrimony: {
-      type: String
+      type: String,
+      default: ''
     },
 
     inst_Patrimony: {
-      type: String
+      type: String,
+      default: ''
     },
 
     monitor: {
-      type: String
+      type: String,
+      default: ''
     },
 
     monitor_number_Patrimony: {
-      type: String
+      type: String,
+      default: ''
     },
 
     inst_monitor_Patrimony: {
-      type: String
-    }, 
+      type: String,
+      default: ''
+    },
 
     situation: {
-        type: String
+        type: String,
+        default: ''
     },
 
     acquisition_date: {
-        type: Date
+        type: Date,
+        default: ''
     },
 
     destination:{
-        type: String
+        type: String,
+        default: ''
     }
 });
 
