@@ -5,10 +5,10 @@ var archiver = require('archiver')
 var Machine = require('../models/machine');
 var fs = require('fs');
 var path = require('path');
-
+var User = require("../models/user");
 var auth = require('./auth');
 
-router.post('/machine', auth.getAuth(), function (req, res) {
+router.post('/machine', auth.getAuth(), auth.checkRole, function (req, res) {
 
     var machine = new Machine(req.body);
         machine.save(function (err, next) {
@@ -20,22 +20,25 @@ router.post('/machine', auth.getAuth(), function (req, res) {
 
 });
 
-router.post('/machinesInRoom', auth.getAuth(), function (req, res) {
+router.post('/machinesInRoom', auth.getAuth(), auth.checkRole, function (req, res) {
 
-    var roomID = req.body.room;
-        Machine.find({room: roomID} , function (err, machine) {
+    if (auth.checkPermission(req, res)) {
+
+        var roomID = req.body.room;
+        Machine.find({room: roomID}, function (err, machine) {
             if (err) return console.error(err);
             res.send(machine);
         });
 
+    }
 });
 
 router.get('/machines', auth.getAuth(), function (req, res) {
 
     Machine.find(function (err, machine) {
-            if (err) return console.error(err);
-            res.send(machine);
-        });
+        if (err) return console.error(err);
+        res.send(machine);
+    });
 
 });
 
@@ -61,7 +64,7 @@ router.get('/machine/:machine', auth.getAuth(), function(req, res, next) {
  * Edit Machine
  */
 
-router.put('/machine/:id', auth.getAuth(), function (req, res) {
+router.put('/machine/:id', auth.getAuth(), auth.checkRole, function (req, res) {
     Machine.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
         if (err) console.log(err);
         console.log("Objeto atualizado!");
@@ -69,7 +72,7 @@ router.put('/machine/:id', auth.getAuth(), function (req, res) {
     });
 });
 
-router.delete('/machine/:machine', auth.getAuth(), function(req, res, next) {
+router.delete('/machine/:machine', auth.getAuth(), auth.checkRole, function(req, res, next) {
 
     Machine.remove({_id: req.params.machine}, function(err) {
         if (err) {

@@ -8,15 +8,37 @@ var path = require('path');
 
 var auth = require('./auth');
 
-router.post('/user', auth.getAuth(), function (req, res) {
+router.post('/user', auth.getAuth(), auth.checkRole, function (req, res) {
 
-    var user = new User(req.body);
-        user.save(function (err, next) {
+    var user = new User();
+
+    user.name = req.body.name;
+
+    user.email = req.body.email;
+
+    user.userKind = req.body.userKind;
+
+    user.room = req.body.room;
+
+    if (req.body.password === '' || !req.body.password){
+
+        res.status(400).send({ error: "Senha vazia" });
+
+    } else {
+
+        user.setPassword(req.body.password);
+
+        user.save(function (err) {
+
             if (err) {
-              return next(err);
+                res.status(400).send({ message: "Usuário com esse email já existe" });
+                return console.error(err);
             }
-          res.end()
-      });
+
+            res.sendStatus(200);
+
+        });
+    }
 
 });
 
@@ -46,7 +68,7 @@ router.get('/user/:user', auth.getAuth(), function(req, res, next) {
 
 });
 
-router.delete('/user/:user', auth.getAuth(), function(req, res, next) {
+router.delete('/user/:user', auth.getAuth(), auth.checkRole, function(req, res, next) {
 
   User.remove({_id: req.params.user}, function(err) {
     if (err) {
@@ -65,7 +87,7 @@ router.delete('/user/:user', auth.getAuth(), function(req, res, next) {
  * Edit Thing
  */
 
-router.put('/user/:id', auth.getAuth(), function (req, res) {
+router.put('/user/:id', auth.getAuth(), auth.checkRole, function (req, res) {
   console.log(req.body);
   User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
       if (err) console.log(err);
