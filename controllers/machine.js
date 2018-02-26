@@ -21,16 +21,11 @@ router.post('/machine', auth.getAuth(), auth.checkRole, function (req, res) {
 });
 
 router.post('/machinesInRoom', auth.getAuth(), auth.checkRole, function (req, res) {
-
-    if (auth.checkPermission(req, res)) {
-
         var roomID = req.body.room;
         Machine.find({room: roomID}, function (err, machine) {
             if (err) return console.error(err);
             res.send(machine);
         });
-
-    }
 });
 
 router.get('/machines', auth.getAuth(), function (req, res) {
