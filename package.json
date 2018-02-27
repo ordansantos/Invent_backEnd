@@ -33,6 +33,12 @@
     "nodemon": "^1.11.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "chakram": "^1.5.0"
+  },
+  "devDependencies": {
+    "chakram-joi": "^1.0.0",
+    "chakram": "^1.5.0",
+    "mocha": "^3.5.3"
   }
 }
