@@ -22,7 +22,7 @@ admin.save(function (err) {
     if (err){
         console.log("Usuário admin já cadastrado!");
     } else {
-        console.log("Usuário admin criado!");
+        console.log("Usuário admin criado!!");
     }
 });
 

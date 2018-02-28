@@ -10,6 +10,7 @@ module.exports = function(uri) {
 	});
 
 	var db = mongoose.connect('mongodb://localhost:27017/Invent_backEnd');
+	
 
 	mongoose.connection.on('connected', function() {
 	console.log('Mongoose! Connected on ' + uri);

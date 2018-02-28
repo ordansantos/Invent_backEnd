@@ -13,12 +13,14 @@ var rommSchema = mongoose.Schema({
 });
 
 var Room = mongoose.model('Room', rommSchema);
+var db = mongoose.connection;
 
 // ------------------- Populate Room collection on first run--------------------
 
 var Room = mongoose.model('Room', rommSchema);
 
 var createRoom = function(nameRoom) {
+
  	new Room({
  		name: nameRoom,
  		things: []
@@ -29,7 +31,10 @@ var createRoom = function(nameRoom) {
  	});
  };
 
- Room.count({}, function(err, result) {
+ //funcao para criar as salas somente uma unica vez.
+ Room.find(function (err, room) {
+   console.log(room.length);
+   if (room.length == 0) {
      createRoom('Sala 100');
      createRoom('Sala 101');
      createRoom('Sala 102');
@@ -41,8 +46,8 @@ var createRoom = function(nameRoom) {
      createRoom('Sala 201');
      createRoom('Sala 202');
      createRoom('Sala 203');
-
+     console.log("Salas Criadas!");
+   }
  });
-
 
 module.exports = Room;
