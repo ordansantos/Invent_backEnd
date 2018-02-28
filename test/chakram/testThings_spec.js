@@ -19,13 +19,21 @@ describe("Login", function() {
 
 });
 
-describe("Teste com sucesso para a criação de salas 'mokadas'", function() {
+describe("Teste com sucesso para a criação de objetos 'mokadas'", function() {
 
-    it("criação da sala 1", function() {
-        var post = chakram.post(MYURL + '/room', {
+    it("criação da objeto 1", function() {
+        var post = chakram.post(MYURL + '/thing', {
             _id: "500000000000000000000001",
-            name: "Sala 1001 - CAA",
-            things: []
+            description: "Cadeira presidente",
+            destination: "",
+            acquisition_date: "2017-12-05T03:00:00.000Z",
+            room: "Sala 102",
+            comments: "",
+            situation: "ruim",
+            serie: "6565654654654",
+            brand_model: "desk",
+            origem: "SPLAB",
+            number_Patrimony: "654654465"
         },{ headers: {
             Authorization : 'Bearer ' + authorization
         }});
@@ -34,11 +42,19 @@ describe("Teste com sucesso para a criação de salas 'mokadas'", function() {
         });
     });
 
-    it("criação da sala 2", function() {
-        var post = chakram.post(MYURL + '/room', {
+    it("criação da objeto 2", function() {
+        var post = chakram.post(MYURL + '/thing', {
             _id: "500000000000000000000002",
-            name: "Sala 1002 - CAA",
-            things: []
+            description: "Cadeira",
+            destination: "",
+            acquisition_date: "2017-12-04T03:00:00.000Z",
+            room: "Sala 100",
+            comments: "",
+            situation: "bom",
+            serie: "3232323232",
+            brand_model: "desk",
+            origem: "ufcg",
+            number_Patrimony: "32323233"
         },{ headers: {
             Authorization : 'Bearer ' + authorization
         }});
@@ -53,13 +69,12 @@ describe("Teste com sucesso para a criação de salas 'mokadas'", function() {
 
 
 
-describe("Teste com sucesso para a edição de salas 'mokadas'", function() {
+describe("Teste com sucesso para a edição de objetos 'mokadas'", function() {
 
-    it("edição da sala 1", function() {
-        var put = chakram.put(MYURL + '/room/500000000000000000000001', {
+    it("edição da objeto 1", function() {
+        var put = chakram.put(MYURL + '/thing/500000000000000000000001', {
             _id: "500000000000000000000001",
-            name: "Sala 1001 - BN",
-            things: []
+             description: "Cadeira presidente edit",
         },{ headers: {
             Authorization : 'Bearer ' + authorization
         }});
@@ -68,11 +83,10 @@ describe("Teste com sucesso para a edição de salas 'mokadas'", function() {
         });
     });
 
-    it("edição da sala 2", function() {
-        var put = chakram.put(MYURL + '/room/500000000000000000000002', {
+    it("edição da objeto 2", function() {
+        var put = chakram.put(MYURL + '/thing/500000000000000000000002', {
             _id: "500000000000000000000002",
-            name: "Sala 1002 - BN",
-            things: []
+             description: "Cadeira edit",
         },{ headers: {
             Authorization : 'Bearer ' + authorization
         }});
@@ -83,24 +97,24 @@ describe("Teste com sucesso para a edição de salas 'mokadas'", function() {
 
 });
 
-describe("Teste com sucesso para a remoção de salas", function() {
+describe("Teste com sucesso para a remoção de objetos", function() {
 
-    it("remoção da sala 1", function() {
-        var deleteRoom = chakram.delete(MYURL + '/room/500000000000000000000001',{}
+    it("remoção da objeto 1", function() {
+        var deleteThing = chakram.delete(MYURL + '/thing/500000000000000000000001',{}
             ,{ headers: {
                 Authorization : 'Bearer ' + authorization
         }});
-        return deleteRoom.then(function(response) {
+        return deleteThing.then(function(response) {
             return expect(response).to.have.status(200);
         });
     });
 
-    it("remoção da sala 2", function() {
-        var deleteRoom = chakram.delete(MYURL + '/room/500000000000000000000002',{}
+    it("remoção da objeto 2", function() {
+        var deleteThing = chakram.delete(MYURL + '/thing/500000000000000000000002',{}
             ,{ headers: {
                 Authorization : 'Bearer ' + authorization
         }});
-        return deleteRoom.then(function(response) {
+        return deleteThing.then(function(response) {
             return expect(response).to.have.status(200);
         });
     });
