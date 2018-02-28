@@ -13,9 +13,11 @@ router.post('/room', auth.getAuth(), auth.checkRole, function (req, res) {
     var room = new Room(req.body);
         room.save(function (err, next) {
           	if (err) {
-            	return next(err);
+            	return console.error(err);
            	}
+          res.status(200);
           res.end()
+
      	});
     
 });
@@ -24,6 +26,7 @@ router.get('/rooms', auth.getAuth(), function (req, res) {
 
     Room.find(function (err, room) {
             if (err) return console.error(err);
+            res.status(200);
             res.send(room);
         });
     
@@ -41,7 +44,7 @@ router.get('/room/:room', auth.getAuth(), function(req, res, next) {
     }
       var r = res.send(room);
       console.log(r.data);
-
+      res.status(200);
       return next();
   });
   
@@ -56,6 +59,7 @@ router.put('/room/:id', auth.getAuth(), auth.checkRole, function (req, res) {
     Room.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function (err, doc) {
         if (err) console.log(err);
         console.log("Objeto atualizado!");
+        res.status(200);
         res.send(doc);
     });
 });
@@ -65,6 +69,7 @@ router.post('/room', auth.getAuth(), auth.checkRole, function (req, res) {
     var roomID = req.body.room;
       Room.find({room: roomID}, function (err, room) {
             if (err) return console.error(err);
+            res.status(200);
             res.send(room);
         });
     
@@ -78,6 +83,7 @@ router.delete('/room/:room', auth.getAuth(), auth.checkRole, function(req, res, 
 
        return next(err);
     }
+    res.status(200);
     res.end();
 
     return next();
