@@ -56,7 +56,7 @@ router.get('/user/:user', auth.getAuth(), function(req, res, next) {
 
   var user = req.user;
 
-  User.find(function(err) {
+  User.findOne({_id: req.params.user}, function(err,user) {
     if (err) {
       res.sendStatus(404);
       return next(err);

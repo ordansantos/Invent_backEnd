@@ -40,15 +40,15 @@ router.get('/machines', auth.getAuth(), function (req, res) {
 // :machine = id
 router.get('/machine/:machine', auth.getAuth(), function(req, res, next) {
 
+    console.log(req.params.machine);
     var machine = req.machine;
 
-    Machine.find(function(err, machine) {
+    Machine.findOne({_id: req.params.machine}, function(err, machine) {
         if (err) {
             res.sendStatus(404);
             return next(err);
         }
         var r = res.send(machine);
-        console.log(r.data);
 
         return next();
     });

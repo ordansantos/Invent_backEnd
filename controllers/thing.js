@@ -73,7 +73,7 @@ router.get('/thing/:thing', auth.getAuth(), function(req, res, next) {
 
   var thing = req.thing;
 
-  Thing.find(function(err, thing) {
+  Thing.findOne({_id: req.params.thing}, function(err, thing) {
     if (err) {
       res.sendStatus(404);
       return next(err);

@@ -37,7 +37,7 @@ router.get('/room/:room', auth.getAuth(), function(req, res, next) {
     
   var room = req.room;
 
-  Room.find(function(err) {
+  Room.findOne({_id: req.params.room}, function(err, room) {
     if (err) {
       res.sendStatus(404);
       return next(err);
