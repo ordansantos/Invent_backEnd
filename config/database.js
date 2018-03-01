@@ -9,7 +9,7 @@ module.exports = function(uri) {
 	  /* other options */
 	});
 
-	var db = mongoose.connect('mongodb://localhost:27017/Invent_backEnd');
+	var db = mongoose.connect('mongodb://inventuser:invent123@ds125565.mlab.com:25565/heroku_6qnvmz38');
 	
 
 	mongoose.connection.on('connected', function() {
