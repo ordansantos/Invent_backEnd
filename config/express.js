@@ -4,6 +4,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+
 // Authentication
 var passport = require('passport');
 
@@ -36,6 +37,8 @@ module.exports = function () {
     // middleware
     app.use(express.static('./public'));
     app.use(express.static('./views'));
+    app.use(express.static('./uploads'));
+
 
     app.set('view engine', 'html');
     app.engine('html', require('ejs').renderFile);
@@ -57,13 +60,14 @@ module.exports = function () {
         } else {
             res.status(401);
 
-            res.json({"message" : "Provavelmente erro no código..." + err });
+            res.json({"message" : "Provavelmente erro no código..." + err});
         }
     });
 
     var server = app.listen(process.env.PORT || 5000, function () {
         console.log('Invent application listening on port 8081!' + process.env.PORT || 5000);
       });
+
 
     var io = require('socket.io').listen(server);
 
