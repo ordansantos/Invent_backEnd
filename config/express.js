@@ -65,9 +65,8 @@ module.exports = function () {
     });
 
     var server = app.listen(process.env.PORT || 5000, function () {
-        console.log('Invent application listening on port 8081!' + process.env.PORT || 5000);
+        console.log('Invent application listening on port ' + process.env.PORT || 5000);
       });
-
 
     var io = require('socket.io').listen(server);
 
